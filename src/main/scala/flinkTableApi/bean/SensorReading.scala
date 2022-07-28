@@ -1,4 +1,4 @@
-package flinkTableApi
+package flinkTableApi.bean
 
 /**
  * @Auther: wxf

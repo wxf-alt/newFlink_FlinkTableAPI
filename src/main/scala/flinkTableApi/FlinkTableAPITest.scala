@@ -1,5 +1,6 @@
 package flinkTableApi
 
+import flinkTableApi.bean.SensorReading
 import org.apache.flink.streaming.api.scala._
 import org.apache.flink.table.api.scala._
 import org.apache.flink.table.api.Table
