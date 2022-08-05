@@ -1,6 +1,7 @@
 package flinkTableApi
 
 import org.apache.flink.api.scala.ExecutionEnvironment
+import org.apache.flink.streaming.api.TimeCharacteristic
 import org.apache.flink.streaming.api.scala._
 import org.apache.flink.table.api.{EnvironmentSettings, TableEnvironment}
 import org.apache.flink.table.api.scala.{BatchTableEnvironment, StreamTableEnvironment}
