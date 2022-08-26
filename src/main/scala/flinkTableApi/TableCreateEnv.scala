@@ -48,6 +48,5 @@ object TableCreateEnv {
       .build()
     val bbTableEnv: TableEnvironment = TableEnvironment.create(bbSettings)
 
-
   }
 }

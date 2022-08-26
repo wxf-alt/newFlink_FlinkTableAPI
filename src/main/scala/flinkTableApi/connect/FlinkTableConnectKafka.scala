@@ -1,10 +1,13 @@
 package flinkTableApi.connect
 
+import java.util.Properties
+
 import flinkTableApi.bean.SensorReading
 import org.apache.flink.streaming.api.scala._
 import org.apache.flink.table.api.scala._
 import org.apache.flink.table.api.{DataTypes, EnvironmentSettings, Table}
 import org.apache.flink.table.descriptors.{Csv, Kafka, Schema}
+import org.apache.kafka.common.serialization.StringDeserializer
 
 /**
  * @Auther: wxf
