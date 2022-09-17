@@ -3,6 +3,7 @@ package flinkTableApi
 import java.text.SimpleDateFormat
 
 import flinkTableApi.bean.{MyFlinkTable, SensorReading}
+import org.apache.flink.configuration.{Configuration, RestOptions}
 import org.apache.flink.streaming.api.scala._
 import org.apache.flink.table.api.scala._
 import org.apache.flink.table.api.Table
@@ -16,16 +17,20 @@ import org.apache.flink.table.api.Table
 object FlinkTableAPITest {
   def main(args: Array[String]): Unit = {
 
-    val env: StreamExecutionEnvironment = StreamExecutionEnvironment.getExecutionEnvironment
+//    val env: StreamExecutionEnvironment = StreamExecutionEnvironment.getExecutionEnvironment
+    val conf: Configuration = new Configuration()
+    conf.setInteger(RestOptions.PORT,8081)
+    val env: StreamExecutionEnvironment = StreamExecutionEnvironment.createLocalEnvironmentWithWebUI(conf)
+
     env.setParallelism(1)
 
     // 创建表执行环境
     val tableEnv: StreamTableEnvironment = StreamTableEnvironment.create(env)
 
     //    // 定义流式数据源
-    //    val inputStream: DataStream[String] = env.socketTextStream("localhost", 6666)
-    val path: String = ClassLoader.getSystemResource("sensor.txt").getPath
-    val inputStream: DataStream[String] = env.readTextFile(path)
+    val inputStream: DataStream[String] = env.socketTextStream("localhost", 6666)
+    //    val path: String = ClassLoader.getSystemResource("sensor.txt").getPath
+    //    val inputStream: DataStream[String] = env.readTextFile(path)
 
     val dataStream: DataStream[SensorReading] = inputStream.map(x => {
       val str: Array[String] = x.split(" ")
@@ -57,7 +62,7 @@ object FlinkTableAPITest {
     appendStream2.print("sensorTable2：")
 
     // 查看执行计划
-//    println("resultTable1：" + tableEnv.explain(resultTable1))
+    //    println("resultTable1：" + tableEnv.explain(resultTable1))
     println("sensorTable2：" + tableEnv.explain(sensorTable2))
 
     env.execute("FlinkTableAPITest")
